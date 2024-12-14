@@ -4,6 +4,10 @@
 
 *The primary objective of this dashboard is to enable data-driven decision-making, support benchmarking against peers, and identify actionable opportunities for improvement. Developed with alignment to the Canadian Institute for Health Information (CIHI) standards, it offers a valuable tool for healthcare administrators and policymakers to enhance patient care quality and satisfaction.*
 
+Here is visualization from the dashboard:
+
+![HCAHPS Dashboard](HCAHPS-Patient-Satisfaction-Scores-/1.JPG)
+
 ## Analysis Overview
 
 ### Data Source and Structure
