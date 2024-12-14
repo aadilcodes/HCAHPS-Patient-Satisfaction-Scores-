@@ -6,7 +6,7 @@
 
 Here is visualization from the dashboard:
 
-![HCAHPS Dashboard](HCAHPS-Patient-Satisfaction-Scores-/1.JPG)
+![HCAHPS Dashboard](1.JPG)
 
 ## Analysis Overview
 
