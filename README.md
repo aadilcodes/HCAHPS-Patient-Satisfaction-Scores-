@@ -1,113 +1,85 @@
-# Executive Summary
+## Executive Summary
 
-This report analyzes patient satisfaction data from the **CMS HCAHPS 2022 survey**, evaluating hospital performance across the United States. The analysis is visualized in a **Tableau dashboard**, providing insights into key metrics, including overall hospital experience, communication with healthcare providers, and survey response rates.
+*This report provides an analysis of patient satisfaction data from the CMS HCAHPS 2022 survey, visualized through an interactive Tableau dashboard. The dashboard evaluates hospital performance across the United States, presenting metrics related to overall hospital experience, communication with healthcare providers, and survey response rates.*
 
-The findings aim to support data-driven decision-making, identify areas for improvement, and benchmark hospitals against their peers. The methodology aligns with **Canadian Institute for Health Information (CIHI)** standards for patient-reported experience measures (PREMs).
+*The primary objective of this dashboard is to enable data-driven decision-making, support benchmarking against peers, and identify actionable opportunities for improvement. Developed with alignment to the Canadian Institute for Health Information (CIHI) standards, it offers a valuable tool for healthcare administrators and policymakers to enhance patient care quality and satisfaction.*
 
----
+## Analysis Overview
 
-# Analysis Overview
+### Data Source and Structure
 
-## Data Source and Filters
+- **Dataset:** [CMS HCAHPS 2022 Patient Survey](https://data.cms.gov/provider-data/search?fulltext=survey&theme=Hospitals)
+- **Scope:** Covers patient satisfaction feedback across all 50 U.S. states and hospital sizes.
+- **Survey Purpose:** Captures patient-reported experiences during hospital stays, focusing on critical aspects such as communication, responsiveness, and cleanliness.
 
-- **Dataset:** CMS HCAHPS 2022 Patient Survey  
-- **Scope:** Patient satisfaction data from all U.S. states  
-- **Survey Structure:**
-  - Evaluates critical aspects of hospital experience through patient feedback  
-  - Top Box responses measure the highest satisfaction levels  
+### Survey Structure
 
-### Filters Applied
+Utilizes "Top Box" responses, representing the highest satisfaction levels (e.g., "Always" or "9–10").
 
-1. **State:** Selectable for state-specific insights  
-2. **Hospital Size:**
-    - Large: >500 beds  
-    - Medium: 100–500 beds  
-    - Small: <100 beds  
+### Filters and Interactive Features
 
-## Metrics Calculated
+- **State Filter:** Enables state-specific analysis for regional insights.
+- **Hospital Size Filter:** Groups hospitals into three categories:
+  - Large: >500 beds
+  - Medium: 100–500 beds
+  - Small: <100 beds
 
-1. **Top Box Filter:** Identifies responses rated as "Always" or "9–10".  
-    - **Calculation in Tableau:**
-    ```text
-    IF CONTAINS([HCAHPS Question], 'Always') OR CONTAINS([HCAHPS Question], '9') THEN 1 ELSE 0 END
-    ```
-2. **Cohort Delta Spread:** Measures the deviation of a hospital’s score from the cohort average, grouped by state and hospital size.  
-    - **Calculation in Tableau (Level of Detail):**
-    ```text
-    [Actual HCAHPS Answer Percent] - 
-    {FIXED [State], [Hospital Size], [HCAHPS Answer Description]: AVG([Actual HCAHPS Answer Percent])}
-    ```
+### Metrics Calculated in Tableau
 
----
+#### Top Box Filter
 
-# Key Findings and Visualizations
+Identifies responses rated as "Always" or "9–10," emphasizing high satisfaction levels.
 
-## 1. Overall Hospital Experience (Top Box Ratings)
+**Tableau Calculation:**
 
-- **Purpose:** Evaluates the percentage of patients rating hospitals 9–10 on a 10-point scale.  
-- **Key Insight:**  
-    - Scores range from **58% to 75%** across hospitals, with notable variability by state and hospital size.  
-    - Larger hospitals (>500 beds) tend to show slightly lower scores, highlighting challenges in maintaining high satisfaction levels at scale.
+```text
+IF CONTAINS([HCAHPS Question], 'Always') OR CONTAINS([HCAHPS Question], '9') THEN 1 ELSE 0 END
+```
 
----
+#### Cohort Delta Spread from Mean
 
-## 2. Question Delta from Mean Cohort
+Measures a hospital’s performance deviation from the cohort average based on state and hospital size.
 
-- **Purpose:** Highlights performance deviations on specific satisfaction metrics (e.g., communication with doctors, explanation of procedures).  
-- **Key Insight:**
-    - **Positive Deviations:**  
-        - "Doctors always communicated well": **+1.73% above cohort average**.  
-        - "Nurses always explained things clearly": **+0.85% above cohort average**.  
-    - **Negative Deviations:**  
-        - "Room was always clean": **−0.42% below cohort average**.  
-- **Use Case:** Helps hospitals identify specific areas to target for quality improvement based on peer comparisons.
+**Level of Detail Tableau Calculation:**
 
----
+```text
+[Actual HCAHPS Answer Percent] - 
+{FIXED [State], [Hospital Size], [HCAHPS Answer Description]: AVG([Actual HCAHPS Answer Percent])}
+```
 
-## 3. Cohort Hospital Delta Spread
+## Key Visualizations in the Dashboard
 
-- **Purpose:** Visualizes hospital performance relative to the cohort average, categorizing results into **positive (blue)** or **negative (red)** zones.  
-- **Key Insight:**
-    - Hospitals in the positive zone demonstrate exceptional performance in areas like communication and attentiveness.  
-    - Smaller hospitals (<100 beds) are more likely to outperform their cohort averages, suggesting a potential advantage in personalized care.
+1. **Overall Hospital Experience (Top Box Ratings)**
+   - **Purpose:** Evaluates the percentage of patients rating hospitals 9–10 on a 10-point scale.
+   - **Use Case:** Assists hospital administrators in identifying high-performing institutions and benchmarking against similar-sized hospitals within the same state.
 
----
+2. **Question Delta from Mean Cohort**
+   - **Purpose:** Highlights performance deviations in specific satisfaction areas, such as communication and responsiveness.
+   - **Use Case:** Allows hospitals to pinpoint improvement opportunities by comparing their metrics against the average for their state and size cohort.
 
-## 4. Survey Response Rate and Number of Completed Surveys
+3. **Cohort Hospital Delta Spread**
+   - **Purpose:** Visualizes hospital performance relative to the cohort average, categorizing outcomes into positive (above average) or negative (below average) zones.
+   - **Use Case:** Empowers decision-makers to identify strengths and weaknesses at a granular level, facilitating targeted interventions.
 
-- **Purpose:** Evaluates the reliability and robustness of survey data.  
-- **Key Insight:**  
-    - Response rates average around **17%**, with **400–600 completed surveys** per hospital, ensuring statistically significant results.
+4. **Survey Response Rate and Number of Completed Surveys**
+   - **Purpose:** Demonstrates the reliability and representativeness of survey data, ensuring insights are based on robust sample sizes.
 
----
+## Alignment with CIHI Indicators
 
-# Alignment with CIHI Indicators
+The dashboard integrates key principles of CIHI’s Patient-Reported Experience Measures (PREMs), focusing on:
 
-This analysis incorporates principles from CIHI’s **Patient-Reported Experience Measures (PREMs)** framework, focusing on:  
-- **Overall Hospital Experience:** Reflecting CIHI’s emphasis on patient-centered outcomes.  
-- **Communication with Nurses and Doctors:** Evaluated using Top Box metrics to identify the most positive patient responses.  
+- **Patient-Centered Outcomes:** Evaluating overall satisfaction with hospital services.
+- **Quality of Communication:** Measuring interactions with nurses and doctors through Top Box metrics.
+- **Actionable Benchmarks:** Providing comparative insights to foster continuous improvement in patient care delivery.
 
----
+## Recommendations and Applications
+- Utilize the dashboard’s state and hospital size filters to identify leaders and laggards in patient satisfaction.
+- Benchmark performance across comparable institutions to drive informed decision-making.
+- Identify high-performing hospitals and study their practices to share knowledge across the healthcare system.
+- Use insights from the Cohort Delta Spread to prioritize resource allocation and interventions in underperforming areas.
+- Leverage survey response rate data to ensure data-driven strategies are based on reliable and representative samples.
 
-# Conclusion and Recommendations
+## Conclusion
 
-1. **Benchmarking:** Use the Tableau dashboard to benchmark hospital performance by state and size, identifying leaders and laggards.  
-2. **Targeted Improvements:** Focus on improving low-scoring metrics such as cleanliness and response times, as indicated by negative cohort deviations.  
-3. **Scalability Challenges:** Larger hospitals may benefit from focused interventions to address scale-related satisfaction challenges.  
-4. **Actionable Insights:**  
-    - **High Performers:** Share best practices from high-scoring hospitals.  
-    - **Low Performers:** Implement targeted quality improvement programs.  
-
-This report and its dashboard empower decision-makers to derive actionable insights and drive improvements in patient experience across U.S. hospitals.
-
----
-
-# Appendix
-
-### Tableau Dashboard Filters
-- **State:** Dropdown to filter hospitals by state.  
-- **Hospital Size:** Dropdown to filter by small, medium, or large hospitals.  
-
-### Resources
-1. [CMS HCAHPS Data](https://www.cms.gov/)  
-2. [CIHI Patient Experience Indicators](https://www.cihi.ca/)
+This Tableau dashboard provides a comprehensive yet flexible tool for analyzing patient satisfaction data across U.S. hospitals. By aligning with CIHI standards, it ensures relevance and applicability for healthcare administrators aiming to benchmark performance and improve care quality. Through the dashboard’s interactive features and calculated metrics, hospitals can target specific areas for improvement, benchmark effectively, and implement strategies to enhance patient experience.
+```
